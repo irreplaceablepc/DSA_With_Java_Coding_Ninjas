@@ -1,0 +1,35 @@
+public class solution {
+
+	public static void printKeypad(int input){
+		helper("",input);
+	}
+    
+    private static void helper(String p, int up){
+        
+        if(up==0)
+            System.out.println(p);
+        
+        String s=findMapping(up%10);
+        for(int i=0;i<s.length();i++){
+            
+            helper(s.charAt(i)+p,up/10);
+        }
+    }
+    
+    private static String findMapping(int n){
+        
+        String s="";
+        switch(n){
+            case 2: s="abc";break;
+            case 3: s="def";break;
+            case 4: s="ghi";break;
+            case 5: s="jkl";break;
+            case 6: s="mno";break;
+            case 7: s="pqrs";break;
+            case 8: s="tuv";break;
+            case 9: s="wxyz";break;
+        }
+        
+        return s;
+    }
+}

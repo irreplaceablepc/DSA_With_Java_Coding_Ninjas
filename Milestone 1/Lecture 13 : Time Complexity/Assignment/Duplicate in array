@@ -1,0 +1,15 @@
+public class Solution {
+
+	public static int findDuplicate(int[] arr) {
+        int arraySum = 0;
+        for(int i=0;i<arr.length;i++){
+           arraySum += arr[i];
+        }
+       
+        int n = arr.length;
+        int naturalNumberSum = ((n-2) * (n-1))/2;
+        //its obvious the duplicate is added twice, so 
+        int result = arraySum - naturalNumberSum;
+        return result;
+	}
+}

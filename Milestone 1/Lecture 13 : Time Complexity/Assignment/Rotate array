@@ -1,0 +1,33 @@
+
+public class Solution {  
+
+    private static void swapElements(int arr[], int start, int end){
+       int temp = arr[start];
+       arr[start] = arr[end];
+       arr[end] = temp;
+    }
+    //A program to reverse a array from start to end
+    private static void reverse(int arr[], int start, int end){
+        while(start<end){
+            swapElements(arr, start, end);
+            start++;
+            end--;
+        }
+    } 
+    public static void rotate(int[] arr, int d) {
+    	//Your code goes here
+        if(arr.length == 0){
+            return;
+        }
+        if(d>=arr.length && arr.length != 0){
+            d =d%arr.length; //to get effective d 
+        }
+        //reverse the original array
+        reverse(arr, 0, arr.length-1);
+        //reverse first n-d elements 
+        reverse(arr, 0, arr.length-1-d);
+        //reverse last d elements 
+        reverse(arr, arr.length-d, arr.length-1);
+    }
+
+}

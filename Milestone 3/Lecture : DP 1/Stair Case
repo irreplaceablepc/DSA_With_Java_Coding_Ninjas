@@ -1,0 +1,22 @@
+public class Solution {
+
+	public static long staircase(int n) {
+		long [] count = new long[n+1];
+        count[0]=1;
+        // long c=0;
+        for (int i = 1; i <=n ; i++) {
+        
+            if(i-1>=0){
+                count[i]+=count[i-1];
+            }
+            if(i-2>=0){
+                count[i]+=count[i-2];
+            }
+            if(i-3>=0){
+                count[i]+=count[i-3];
+            }
+        }
+        return count[n];
+	}
+
+}

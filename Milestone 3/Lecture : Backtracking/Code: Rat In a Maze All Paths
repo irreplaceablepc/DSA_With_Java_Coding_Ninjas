@@ -1,0 +1,50 @@
+/*
+	Note:
+	To get all the test cases accepted, make recursive calls in following order: Top, Down, Left, Right.
+	This means that if the current cell is (x, y), then order of calls should be: top cell (x-1, y), 
+	down cell (x+1, y), left cell (x, y-1) and right cell (x, y+1).
+*/  
+import java.util.*;
+public class Solution {
+
+
+	static void ratInAMaze(int maze[][], int n) {
+		int [][] m=new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++)
+                m[i][j]=maze[i][j];
+        }
+        int [][] visited=new int[n][n];
+        helper(m,0,0,visited);
+        // for(int [] a:m)
+        //     System.out.println(Arrays.toString(a));
+	}
+
+    
+    public static void helper(int [][] m, int r,int c,int [][] visited){
+        
+        int n=m.length;
+        if(r<0 || r>=n || c<0 || c>=n || m[r][c]==0 || visited[r][c]==1)
+            return;
+        
+        if(r==(n-1) && c==(n-1)){
+            visited[r][c]=1;
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    System.out.print(visited[i][j]+" ");                
+                }
+            }
+            System.out.println();
+            visited[r][c]=0;
+            return;
+        }
+        
+        visited[r][c]=1;
+        helper(m,r-1,c,visited);
+        helper(m,r+1,c,visited);
+        helper(m,r,c-1,visited);
+        helper(m,r,c+1,visited);
+        visited[r][c]=0;
+    
+    }
+}

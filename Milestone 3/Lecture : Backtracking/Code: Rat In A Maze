@@ -1,0 +1,25 @@
+
+public class Solution {
+
+	public static boolean ratInAMaze(int maze[][]){
+
+		int [][] visited=new int[maze.length][maze.length];
+        return helper(maze,visited,0,0,maze.length);
+	}
+    
+    public static boolean helper(int [][] maze,int [][] visited,int r,int c, int N){
+        if(r<0 || r>=N || c<0 || c>=N)
+            return false;
+        if(r==N-1 && c==N-1)
+            return true;
+        if(maze[r][c]==0 || visited[r][c]==1)
+            return false;
+        
+        visited[r][c]=1;
+        boolean ans=false;
+        ans = helper(maze,visited,r-1,c,N) || helper(maze,visited,r,c+1,N) || helper(maze,visited,r+1,c,N)
+            || helper(maze,visited,r,c-1,N);
+        visited[r][c]=0;
+        return ans;
+    }
+}

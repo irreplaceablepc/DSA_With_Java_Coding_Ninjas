@@ -1,0 +1,29 @@
+public class Solution {
+	
+	public static boolean checkNumber(int input[], int x) {
+		int len = input.length;
+        
+        if(len<=0){
+            return false;
+        }
+        
+        int[] smallInput = new int[len-1];
+        for(int i = 1; i<len-1; i++){
+            smallInput[i-1] = input[i];
+        }
+        
+        boolean smallAns = checkNumber(smallInput, x);
+        
+        if (smallAns){
+            return true;
+        }
+        
+        if (input[0] == x){
+            return true;
+        } else{
+            return false;
+        }
+		
+	}
+
+}

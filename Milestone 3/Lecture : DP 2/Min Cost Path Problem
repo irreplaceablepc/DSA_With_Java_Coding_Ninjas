@@ -1,0 +1,69 @@
+
+public class Solution {
+
+	public static int minCostPath(int[][] input) {
+		int m=input.length;
+        int n=input[0].length;
+        int [][] storage=new int[m][n];
+        storage[m-1][n-1]=input[m-1][n-1];
+        for (int i = m-1; i >=0 ; i--) {
+            for (int j = n-1; j >=0 ; j--) {
+                if(i==m-1 && j==n-1)
+                    continue;
+                int v1=Integer.MAX_VALUE;
+                int v2=Integer.MAX_VALUE;
+                int v3=Integer.MAX_VALUE;
+                if(i+1<m &&j<n)
+                    v1=storage[i+1][j];
+                if(i+1<m && j+1<n)
+                    v2=storage[i+1][j+1];
+                if(i<m && j+1<n)
+                    v3=storage[i][j+1];
+                storage[i][j]=input[i][j]+Math.min(v1,Math.min(v2,v3));
+            }
+        }
+        return storage[0][0];
+	}
+    
+    public static int minCostPath(int[][] input,int r,int c) {
+        //Your code goes here
+        if(r==input.length-1 && c==input[0].length-1){
+            return input[r][c];
+        }
+        int v1=Integer.MAX_VALUE;
+        int v2=Integer.MAX_VALUE;
+        int v3=Integer.MAX_VALUE;
+        if(r+1<input.length)
+            v1=minCostPath(input,r+1,c);
+        if(r+1<input.length && c+1<input[0].length)
+            v2=minCostPath(input,r+1,c+1);
+        if(c+1<input[0].length)
+            v3=minCostPath(input,r,c+1);
+
+        return input[r][c]+Math.min(v1,Math.min(v2,v3));
+    }
+    
+    public static int minCostPathM(int[][] input,int r,int c,int [][] storage) {
+        //Your code goes here
+        if(r==input.length-1 && c==input[0].length-1){
+            storage[r][c]=input[r][c];
+            return storage[r][c];
+        }
+
+        if(storage[r][c]!=-1)
+            return storage[r][c];
+
+        int v1=Integer.MAX_VALUE;
+        int v2=Integer.MAX_VALUE;
+        int v3=Integer.MAX_VALUE;
+        if(r+1<input.length)
+            v1=minCostPathM(input,r+1,c,storage);
+        if(r+1<input.length && c+1<input[0].length)
+            v2=minCostPathM(input,r+1,c+1,storage);
+        if(c+1<input[0].length)
+            v3=minCostPathM(input,r,c+1,storage);
+
+        storage[r][c]=input[r][c]+Math.min(v1,Math.min(v2,v3));
+        return storage[r][c];
+    }
+}

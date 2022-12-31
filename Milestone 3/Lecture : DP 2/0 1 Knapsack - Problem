@@ -1,0 +1,27 @@
+
+public class Solution {
+
+	public static int knapsack(int[] weights, int[] values, int n, int maxWeight) {
+		int m = weights.length;
+		int n1 = maxWeight;
+		int[][] storage = new int[m + 1][n1 + 1];
+		for (int i = 0; i <= n1; i++) {
+			storage[m][i] = 0;
+		}
+		for (int i = 0; i <= m; i++) {
+			storage[i][0] = 0;
+		}
+
+		for (int i = m - 1; i >= 0; i--) {
+			for (int j = 1; j <= n1; j++) {
+				if (weights[i] > j) {
+					storage[i][j] = storage[i + 1][j];
+				} else {
+					storage[i][j] = Math.max(values[i] + storage[i + 1][j - weights[i]], storage[i + 1][j]);
+				}
+			}
+		}
+
+		return storage[0][n1];
+	}
+}

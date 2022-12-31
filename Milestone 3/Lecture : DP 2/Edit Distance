@@ -1,0 +1,41 @@
+	
+public class Solution {
+
+	public static int editDistance(String s, String t) {
+		int [][] stotage=new int[s.length()+1][t.length()+1];
+        for (int i = 0; i < stotage.length; i++) {
+            for (int j = 0; j < stotage[0].length; j++) {
+                stotage[i][j]=-1;
+            }
+        }
+        
+        return editDistance(s,t,stotage);
+	}
+
+	public static int editDistance(String s, String t,int [][] stotage){
+
+        int m=s.length();
+        int n=t.length();
+        if(s.isEmpty()){
+            stotage[m][n]=n;
+            return n;
+        }
+        
+        if(t.isEmpty()){
+            stotage[m][n]=m;
+            return m;
+        }
+        
+        if(stotage[m][n]!=-1)
+            return stotage[m][n];
+        
+        if(s.charAt(0)==t.charAt(0)) {
+            stotage[m][n]= editDistance(s.substring(1), t.substring(1), stotage);
+        }
+        else {
+            stotage[m][n]= 1+ Math.min(editDistance(s,t.substring(1),stotage),
+                    Math.min(editDistance(s.substring(1),t,stotage),editDistance(s.substring(1),t.substring(1),stotage)));
+        }
+        return stotage[m][n];
+    }
+}

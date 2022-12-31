@@ -1,0 +1,16 @@
+public class Solution {
+
+	public static int maxMoneyLooted(int[] houses) {
+		if (houses.length == 0)
+			return 0;
+		if (houses.length == 1)
+			return houses[0];
+		houses[1] = Math.max(houses[1], houses[0]);
+		for (int i = 2; i < houses.length; i++) {
+			houses[i] = Math.max(houses[i] + houses[i - 2], houses[i - 1]);
+		}
+
+		return houses[houses.length - 1];
+
+	}
+}

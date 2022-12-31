@@ -1,0 +1,48 @@
+
+public class Solution {
+
+	public static int lcs(String s, String t) {
+		int m = s.length();
+		int n = t.length();
+		int[][] storage = new int[m + 1][n + 1];
+		for (int i = 0; i <= n; i++) {
+			storage[0][i] = 0;
+		}
+
+		for (int i = 0; i <= m; i++) {
+			storage[i][0] = 0;
+		}
+
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (s.charAt(m - i) == t.charAt(n - j)) {
+					storage[i][j] = 1 + storage[i - 1][j - 1];
+				} else {
+					storage[i][j] = Math.max(storage[i - 1][j], storage[i][j - 1]);
+				}
+			}
+		}
+		return storage[m][n];
+	}
+
+	public static int lcsM(String s, String t, int[][] storage) {
+
+		if (s.isEmpty() || t.isEmpty()) {
+			storage[s.length()][t.length()] = 0;
+			return 0;
+		}
+
+		if (storage[s.length()][t.length()] != -1) {
+			return storage[s.length()][t.length()];
+		}
+
+		if (s.charAt(0) == t.charAt(0)) {
+			storage[s.length()][t.length()] = 1 + lcsM(s.substring(1), t.substring(1), storage);
+			return storage[s.length()][t.length()];
+		}
+
+		storage[s.length()][t.length()] = Math.max(lcsM(s, t.substring(1), storage), lcsM(s.substring(1), t, storage));
+		return storage[s.length()][t.length()];
+	}
+
+}

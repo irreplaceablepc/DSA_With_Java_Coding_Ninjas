@@ -1,0 +1,27 @@
+public class Solution {
+
+	public static String findWinner(int n, int x, int y) {
+		int [] win=new int[n+1];
+       
+        win[1]=1;
+        for(int i=2;i<=n;i++){
+            if(i==x || i==y){
+                win[i]=1;
+                continue;
+            }
+
+            int v1=(win[i-1]+1)%2;
+            if(i-x>0)
+                v1=v1| ((win[i-x]+1)%2);
+            if(i-y>0)
+                v1=v1| ((win[i-y]+1)%2);
+
+            win[i]=v1;
+        }
+
+        if(win[n]==1)
+             return "Beerus";
+        return "Whis";
+        }
+
+}
